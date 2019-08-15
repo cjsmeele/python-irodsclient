@@ -92,6 +92,10 @@ class iRODSMessage(object):
         # bs = sock.recv(bs_len, socket.MSG_WAITALL) if bs_len != 0 else None
         bs = _recv_message_in_len(sock, bs_len) if bs_len != 0 else None
 
+        # See https://github.com/irods/irods/issues/4132
+        if message is not None:
+            message = message.replace(b'&apos;', b'`')
+
         # if message:
         #     logger.debug(message)
 
